@@ -13,7 +13,7 @@ print(data.describe())
 #  ==================================================================
 #  Simple version: use a few features which all have column.dtype=int.
 #  ==================================================================
-model = DecisionTreeRegressor()
+model = DecisionTreeRegressor(max_leaf_nodes=5000)
 
 # 1. use a few features
 predicators = ["LotArea", "YearBuilt", "1stFlrSF", "2ndFlrSF", "FullBath", "BedroomAbvGr", "TotRmsAbvGrd"]
@@ -36,7 +36,8 @@ print("validation data set error",
 #  ==================================================================
 #  Advanced version: use all features.
 #  ==================================================================      
-model = DecisionTreeRegressor()
+# Decision tree has up to 1000 nodes.
+model = DecisionTreeRegressor(max_leaf_nodes=1000)
 
 # Y = weight * X + b.  Y = data['SalePrice'].
 # ==========================================
