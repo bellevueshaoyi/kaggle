@@ -60,3 +60,11 @@ print('---no max leaf nodes---')
 predict(model, train_x, train_y, train_x, train_y, max_leaf_nodes=None)
 predict(model, train_x, train_y, validation_x, validation_y, 
         max_leaf_nodes=None)   
+
+#6. Get testing result
+model = RandomForestRegressor()
+model.fit(train_x, train_y)
+predicted_prices = model.predict(imputed_test_data)
+print(predicted_prices)
+
+
