@@ -64,7 +64,15 @@ for rounds in (500, 1000, 2000):
     print(mean_absolute_error(model.predict(validation_x), validation_y))
     print('')
 
-#model = RandomForestRegressor(max_leaf_nodes=5000)
+# =======Plot train and validation=========
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.scatter(model.predict(train_x), train_y, s=1, c='b', marker="s", label='real')
+ax1.scatter(model.predict(validation_x),validation_y, s=10, c='r', marker="o")
+plt.show()
+
+# =======Get prediction for test set=========
 model = XGBRegressor(n_estimators=5000, learning_rate=0.05)
 model.fit(train_x, train_y, early_stopping_rounds=5,
           eval_set=[(validation_x, validation_y)], verbose=False)
