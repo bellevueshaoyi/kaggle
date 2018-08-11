@@ -61,6 +61,15 @@ predict(model, train_x, train_y, train_x, train_y, max_leaf_nodes=None)
 predict(model, train_x, train_y, validation_x, validation_y, 
         max_leaf_nodes=None)   
 
+# =======Plot=========
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.scatter(model.predict(train_x), train_y, s=1, c='b', marker="s", label='real')
+ax1.scatter(model.predict(validation_x),validation_y, s=10, c='r', marker="o")
+plt.show()
+
+
 #6. Get testing result
 model = RandomForestRegressor()
 model.fit(train_x, train_y)
