@@ -14,6 +14,7 @@ def predict(model, training_x, training_y,
           mean_absolute_error(
               model.predict(validation_x), validation_y))
 
+#=======Clean up data=======
 # Prepare data.
 cols_with_missing_val = [col for col in data.columns 
                          if data[col].isnull().any()]
@@ -50,7 +51,7 @@ validation_x = pd.DataFrame(
 imputed_test_data = pd.DataFrame(
     my_imputer.transform(aligned_pre_impute_test_data))
     
-# Predict with XGBoost
+#=====Predict with LinearRegression=====
 from xgboost import XGBRegressor
 
 for rounds in (500, 1000, 2000):
@@ -73,11 +74,19 @@ print(mean_absolute_error(model.predict(train_x), train_y))
 print('---validation set error---')
 print(mean_absolute_error(model.predict(validation_x), validation_y))
 
-# predict testing data
+# =======Plot train and validation=========
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.scatter(model.predict(train_x), train_y, s=1, c='b', marker="s", label='real')
+ax1.scatter(model.predict(validation_x),validation_y, s=10, c='r', marker="o")
+plt.show()
+
+# =======predict testing data=======
 predicted_prices = model.predict(imputed_test_data)
 print(predicted_prices)
 
-# Output.
+# =======Output=======
 my_submission = pd.DataFrame({'Id': testing_data.Id, 'SalePrice': predicted_prices})
 # you could use any filename. We choose submission here
 my_submission.to_csv('submission_xgboost.csv', index=False)
