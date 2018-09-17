@@ -17,6 +17,15 @@ from sklearn.metrics import log_loss
 
 print(os.listdir("../input"))
 
+# 0. Load data.
+train = pd.read_csv('../input/train.csv')
+test = pd.read_csv('../input/test.csv')
+sample = pd.read_csv('../input/sample_submission.csv')
+# Print: 
+# id |   text      | author
+# 123| this is...  | Mark Twin
+train.head()
+
 # 1. Preprocessing.
 lbl_enc = preprocessing.LabelEncoder()
 y = lbl_enc.fit_transform(train.author)
