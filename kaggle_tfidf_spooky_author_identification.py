@@ -96,3 +96,16 @@ predictions = clf.predict_proba(xvalid_tfv)
 
 # Use log-loss: sum(y_true*log(y_pred) + (1-y_true)*log(1-y_pred)).
 print ("logloss: %0.3f " % log_loss(yvalid, predictions))
+
+# 6. final output.
+# output. there're 3 authors, so when predictions[0] is biggest among predictions[:], 
+# it means the text belongs to first author.
+# output looks like:
+# array([[0.64571321, 0.07199093, 0.28229586],
+#       [0.72814721, 0.1104402 , 0.16141259],
+#       [0.59461854, 0.16060912, 0.24477234],
+#       ...,
+#       [0.30974594, 0.23043909, 0.45981496],
+#       [0.27847167, 0.19121258, 0.53031575],
+       [0.12123608, 0.80918859, 0.06957533]])
+predictions
