@@ -30,7 +30,7 @@ train.head()
 lbl_enc = preprocessing.LabelEncoder()
 y = lbl_enc.fit_transform(train.author)
 # Labels converted from name to int.
-print y
+print(y)
 
 # 2. train test split.
 xtrain, xvalid, ytrain, yvalid = train_test_split(train.text.values, y, 
@@ -78,6 +78,9 @@ tfv = TfidfVectorizer(
 tfv.fit(list(xtrain) + list(xvalid))
 xtrain_tfv =  tfv.transform(xtrain) 
 xvalid_tfv = tfv.transform(xvalid)
+# Print dictionary (all words from training data)
+print('number of words in dictionary')
+print(len(tfv.vocabulary_))
 
 # 4. print the vocabulary that's built by TF-IDF (including the ngaram combinations) and stop words.
 # Print the stop words. Terms that were ignored because they either: 
