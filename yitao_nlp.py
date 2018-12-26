@@ -13,7 +13,6 @@ from sklearn.metrics import log_loss
 from sklearn.svm import SVC
 
 def _predict(train, col_name, verbal=True):
-    print('----for column: {0}----'.format(col_name))
     # 1. Preprocessing.
     # TBA
     lbl_enc = preprocessing.LabelEncoder()
@@ -97,11 +96,24 @@ path = "../input/vulnerability.csv"
 train = pd.read_csv(path)
 train.head(5)
 output = train
-#for col in ['Kernel', 'Remote', 'Code Execution', 'Privilege Escalation', 'Denial of Service']:
-for col in ['Remote']:
-    y = _predict(train, col, verbal=True)
-    print('--- Stats: {0}---'.format(Counter(y)))
+
+# 'Code Execution' only has one value.
+output = train
+for col in ['Kernel', 'Remote', 'Privilege Escalation', 'Denial of Service']:
+    print('column {0}'.format(col))
+    y = _predict(train, col, verbal=False)
+    # print('--- Stats: {0}---'.format(Counter(y)))
+    predicted_output_col = 'PREDICTED ' + col
+    output[predicted_output_col] = y
+    
+    # Evaluate
+    count=0.0
+    for _,o in output.iterrows():
+        if o[col] == o[predicted_output_col]:
+            count = count + 1
+    print('precision: {0}'.format(count/len(output)))
     print('=========================')
-    output['PREDICTED ' + col] = y
+
+    
 output.head(20)    
     
